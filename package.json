@@ -1,0 +1,24 @@
+{
+  "name": "salman-electronics",
+  "version": "2.0.0",
+  "description": "New Salman Electronics - E-commerce website with cart, checkout & Brevo email integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": [
+    "electronics",
+    "ecommerce",
+    "salman",
+    "lahore"
+  ],
+  "author": "Salman Electronics",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

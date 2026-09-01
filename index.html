@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Salman Electronics | Lahore's Trusted Electronics Store</title>
+    <meta name="description" content="New Salman Electronics - Shop no 10, Main Peco Road, Kot Lakhpat, Lahore 54600. ACs, Fridges, Washing Machines, Bikes, TVs. Cash & Installment.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/923229285641?text=Hi!%20I%20need%20information%20about%20your%20products." target="_blank" class="whatsapp-float" aria-label="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#home" class="nav-logo">
+                <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                <div class="logo-text">
+                    <span class="logo-name">Salman</span>
+                    <span class="logo-sub">Electronics</span>
+                </div>
+            </a>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#categories" class="nav-link">Products</a></li>
+                <li><a href="#compare" class="nav-link">Compare</a></li>
+                <li><a href="#services" class="nav-link">Services</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#contact" class="nav-msg" id="msgOwnerBtn">
+                    <i class="fas fa-envelope"></i>
+                    <span>Message Owner</span>
+                </a>
+                <button class="cart-btn" id="cartBtn" aria-label="Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-badge" id="cartCount">0</span>
+                </button>
+                <a href="tel:+923229285641" class="nav-call">
+                    <i class="fas fa-phone"></i>
+                    <span>0322-9285641</span>
+                </a>
+                <button class="nav-toggle" id="navToggle" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== CART DRAWER ===== -->
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Your Cart <span id="cartHeaderCount"></span></h3>
+            <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-empty" id="cartEmpty">
+            <i class="fas fa-shopping-cart"></i>
+            <p>Your cart is empty</p>
+            <a href="#categories" class="btn btn-primary cart-browse-btn">Browse Products</a>
+        </div>
+        <div class="cart-footer" id="cartFooter">
+            <div class="cart-total">
+                <span>Total</span>
+                <strong id="cartTotal">Rs. 0</strong>
+            </div>
+            <button class="btn btn-primary cart-checkout-btn" id="checkoutBtn">
+                <i class="fas fa-lock"></i> Checkout
+            </button>
+        </div>
+    </aside>
+
+    <!-- ===== CHECKOUT MODAL ===== -->
+    <div class="checkout-overlay" id="checkoutOverlay">
+        <div class="checkout-modal">
+            <div class="checkout-header">
+                <h3><i class="fas fa-lock"></i> Place Your Order</h3>
+                <button class="cart-close" id="checkoutClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="checkout-body">
+                <div class="checkout-summary" id="checkoutSummary"></div>
+                <form id="checkoutForm" class="checkout-form">
+                    <div class="checkout-row">
+                        <div class="co-field">
+                            <label>Full Name *</label>
+                            <input type="text" id="coName" placeholder="Your name" required>
+                        </div>
+                        <div class="co-field">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="coPhone" placeholder="03XX-XXXXXXX" required>
+                        </div>
+                    </div>
+                    <div class="co-field">
+                        <label>Delivery Address</label>
+                        <input type="text" id="coAddress" placeholder="Complete address">
+                    </div>
+                    <div class="co-field">
+                        <label>Payment Method</label>
+                        <select id="coPayment">
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                            <option value="Advance + Installment">Advance + Installment</option>
+                            <option value="Full Installment">Full Installment</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div class="co-field">
+                        <label>Notes (optional)</label>
+                        <textarea id="coNotes" placeholder="Any special instructions"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary co-submit" id="coSubmit">
+                        <i class="fab fa-whatsapp"></i> Confirm Order on WhatsApp
+                    </button>
+                    <p class="co-hint">Order will be sent to us via WhatsApp & email. We will call you to confirm.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="home">
+        <div class="hero-bg">
+            <div class="hero-grid"></div>
+            <div class="hero-particles">
+                <span class="pt" style="left:6%;top:18%;--d:11s;--s:7px;"></span>
+                <span class="pt" style="left:14%;top:64%;--d:9s;--s:5px;"></span>
+                <span class="pt" style="left:22%;top:34%;--d:13s;--s:8px;"></span>
+                <span class="pt" style="left:31%;top:78%;--d:10s;--s:4px;"></span>
+                <span class="pt" style="left:38%;top:12%;--d:12s;--s:6px;"></span>
+                <span class="pt" style="left:46%;top:84%;--d:8s;--s:5px;"></span>
+                <span class="pt" style="left:53%;top:26%;--d:14s;--s:9px;"></span>
+                <span class="pt" style="left:61%;top:60%;--d:9s;--s:6px;"></span>
+                <span class="pt" style="left:70%;top:14%;--d:12s;--s:4px;"></span>
+                <span class="pt" style="left:78%;top:72%;--d:10s;--s:7px;"></span>
+                <span class="pt" style="left:87%;top:40%;--d:13s;--s:5px;"></span>
+                <span class="pt" style="left:94%;top:20%;--d:9s;--s:6px;"></span>
+                <span class="pt" style="left:82%;top:88%;--d:11s;--s:8px;"></span>
+                <span class="pt" style="left:26%;top:90%;--d:12s;--s:6px;"></span>
+            </div>
+        </div>
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-star"></i> Authorized Electronics Dealer</div>
+                <h1 class="hero-title">Lahore's Most Trusted<br><span class="gradient-text">Electronics Store</span></h1>
+                <p class="hero-desc">
+                    <strong>New Salman Electronics</strong> brings you the best deals on ACs, Refrigerators, Washing Machines, Bikes & TVs. Compare prices across top brands and save big.
+                </p>
+                <div class="hero-btns">
+                    <a href="#categories" class="btn btn-primary"><i class="fas fa-th-large"></i> Browse Products</a>
+                    <a href="#compare" class="btn btn-outline"><i class="fas fa-balance-scale"></i> Compare Prices</a>
+                    <a href="tel:+923229285641" class="btn btn-outline"><i class="fas fa-phone"></i> Call Now</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat"><span class="stat-num">500+</span><span class="stat-label">Products</span></div>
+                    <div class="stat"><span class="stat-num">15+</span><span class="stat-label">Brands</span></div>
+                    <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Years</span></div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-card card-1"><i class="fas fa-snowflake"></i><span>Air Conditioners</span></div>
+                <div class="hero-card card-2"><i class="fas fa-temperature-low"></i><span>Refrigerators</span></div>
+                <div class="hero-card card-3"><i class="fas fa-tshirt"></i><span>Washing Machines</span></div>
+                <div class="hero-card card-4"><i class="fas fa-motorcycle"></i><span>Bikes</span></div>
+                <div class="hero-card card-5"><i class="fas fa-tv"></i><span>LED TVs</span></div>
+                <div class="hero-center"><i class="fas fa-bolt"></i></div>
+            </div>
+        </div>
+        <a href="#about" class="hero-scroll"><i class="fas fa-chevron-down"></i></a>
+    </section>
+
+    <!-- ===== ABOUT ===== -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text-col">
+                    <span class="section-badge">About Us</span>
+                    <h2 class="section-title">Lahore's Most Trusted <span class="gradient-text">Electronics Store</span></h2>
+                    <p><strong>New Salman Electronics</strong> is located at Shop no 10, Main Peco Road, Kot Lakhpat, Lahore - 54600. We deal in all major electronic products including Air Conditioners, Refrigerators, Washing Machines, Bikes, LED TVs, and more.</p>
+                    <p>We provide quality products at the best prices with both <strong>cash and installment</strong> payment options, making electronics accessible for everyone.</p>
+                    <div class="about-features">
+                        <div class="af"><i class="fas fa-check-circle"></i><div><strong>Genuine Products</strong><span>100% authentic with warranty</span></div></div>
+                        <div class="af"><i class="fas fa-check-circle"></i><div><strong>Best Prices</strong><span>Compare & save more</span></div></div>
+                        <div class="af"><i class="fas fa-check-circle"></i><div><strong>Easy Installments</strong><span>Flexible payment plans</span></div></div>
+                        <div class="af"><i class="fas fa-check-circle"></i><div><strong>Expert Advice</strong><span>We help you choose right</span></div></div>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-inner">
+                        <i class="fas fa-store about-card-icon"></i>
+                        <h3>New Salman Electronics</h3>
+                        <p>Shop no 10, Main Peco Road,<br>Kot Lakhpat, Lahore - 54600</p>
+                        <hr>
+                        <div class="about-card-row"><i class="fas fa-phone-alt"></i> 0322-9285641</div>
+                        <div class="about-card-row"><i class="fas fa-money-bill-wave"></i> Cash & Installment</div>
+                        <div class="about-card-row"><i class="fas fa-clock"></i> Mon-Sat: 10AM - 9PM</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CATEGORIES ===== -->
+    <section class="categories" id="categories">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Our Products</span>
+                <h2 class="section-title">Browse by <span class="gradient-text">Category</span></h2>
+                <p>Click any category to see all products with prices & features</p>
+            </div>
+            <div class="cat-grid">
+                <div class="cat-card" data-category="ac">
+                    <div class="cat-icon"><i class="fas fa-snowflake"></i></div>
+                    <h3>Air Conditioners</h3>
+                    <p>Split, Window & Inverter ACs</p>
+                    <div class="cat-brands">Haier, Gree, Pel, Dawlance</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="cat-card" data-category="fridge">
+                    <div class="cat-icon"><i class="fas fa-temperature-low"></i></div>
+                    <h3>Refrigerators</h3>
+                    <p>Single, Double Door & Freezers</p>
+                    <div class="cat-brands">Dawlance, Haier, Samsung, Pel</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="cat-card" data-category="washing">
+                    <div class="cat-icon"><i class="fas fa-tshirt"></i></div>
+                    <h3>Washing Machines</h3>
+                    <p>Front Load, Top Load & Semi</p>
+                    <div class="cat-brands">Haier, Gree, Dawlance, Singer</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="cat-card" data-category="tv">
+                    <div class="cat-icon"><i class="fas fa-tv"></i></div>
+                    <h3>LED TVs</h3>
+                    <p>Smart, 4K & HD TVs</p>
+                    <div class="cat-brands">Samsung, LG, Sony, TCL</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="cat-card" data-category="bike">
+                    <div class="cat-icon"><i class="fas fa-motorcycle"></i></div>
+                    <h3>Bikes</h3>
+                    <p>70cc, 125cc & 150cc</p>
+                    <div class="cat-brands">Honda, Yamaha, Suzuki, United</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+                <div class="cat-card" data-category="appliance">
+                    <div class="cat-icon"><i class="fas fa-blender"></i></div>
+                    <h3>Home Appliances</h3>
+                    <p>Microwaves, Fans, Irons & More</p>
+                    <div class="cat-brands">Philips, Panasonic, Dawlance</div>
+                    <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PRODUCT MODAL ===== -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-title-area">
+                    <div class="modal-cat-icon" id="modalCatIcon"></div>
+                    <div>
+                        <h2 id="modalTitle"></h2>
+                        <span id="modalSubTitle"></span>
+                    </div>
+                </div>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-filters">
+                <div id="modalBrandBtns"></div>
+            </div>
+            <div class="modal-products" id="modalProducts"></div>
+        </div>
+    </div>
+
+    <!-- ===== PRICE COMPARE ===== -->
+    <section class="compare" id="compare">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge"><i class="fas fa-balance-scale"></i> Price Compare</span>
+                <h2 class="section-title">Compare Prices <span class="gradient-text">Across Brands</span></h2>
+                <p>Select a product to see how different brands compare</p>
+            </div>
+            <div class="compare-controls">
+                <div class="cc-group">
+                    <label>Category</label>
+                    <select id="cmpCategory"><option value="">Select Category</option></select>
+                </div>
+                <div class="cc-group">
+                    <label>Product</label>
+                    <select id="cmpProduct" disabled><option value="">Select Product</option></select>
+                </div>
+                <button class="btn btn-primary" id="cmpBtn" disabled><i class="fas fa-balance-scale"></i> Compare</button>
+            </div>
+            <div id="cmpResult"></div>
+            <div id="cmpPlaceholder" class="cmp-placeholder">
+                <i class="fas fa-balance-scale"></i>
+                <h3>Select a category and product to compare</h3>
+                <p>See which brand offers the best price and features</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SERVICES ===== -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Services</span>
+                <h2 class="section-title">Flexible <span class="gradient-text">Payment Options</span></h2>
+            </div>
+            <div class="svc-grid">
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fas fa-money-check-alt"></i></div>
+                    <h3>Cash Purchase</h3>
+                    <p>Pay full amount and get exclusive cash discounts on all products.</p>
+                    <ul><li><i class="fas fa-check"></i> Instant cash discount</li><li><i class="fas fa-check"></i> No hidden charges</li><li><i class="fas fa-check"></i> All payment methods</li></ul>
+                </div>
+                <div class="svc-card featured">
+                    <span class="svc-badge">Popular</span>
+                    <div class="svc-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <h3>Installment Plan</h3>
+                    <p>Get your product today with easy monthly installments.</p>
+                    <ul><li><i class="fas fa-check"></i> Low monthly payments</li><li><i class="fas fa-check"></i> Flexible tenure</li><li><i class="fas fa-check"></i> Quick approval</li><li><i class="fas fa-check"></i> Minimal documents</li></ul>
+                </div>
+                <div class="svc-card">
+                    <div class="svc-icon"><i class="fas fa-headset"></i></div>
+                    <h3>After-Sale Support</h3>
+                    <p>Free delivery, installation, and warranty assistance.</p>
+                    <ul><li><i class="fas fa-check"></i> Free delivery</li><li><i class="fas fa-check"></i> Installation help</li><li><i class="fas fa-check"></i> Warranty claims</li></ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">Contact</span>
+                <h2 class="section-title">Visit Us <span class="gradient-text">Today</span></h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-cards">
+                    <div class="cc"><div class="cc-icon"><i class="fas fa-map-marker-alt"></i></div><div><h4>Address</h4><p>Shop no 10, Main Peco Road, Kot Lakhpat, Lahore - 54600</p></div></div>
+                    <div class="cc"><div class="cc-icon"><i class="fas fa-phone-alt"></i></div><div><h4>Phone</h4><p><a href="tel:+923229285641">0322-9285641</a></p><span class="cc-sub">NEW SALMAN ELECTRONICS</span></div></div>
+                    <div class="cc"><div class="cc-icon"><i class="fab fa-whatsapp"></i></div><div><h4>WhatsApp</h4><p><a href="https://wa.me/923229285641" target="_blank">0322-9285641</a></p></div></div>
+                    <div class="cc"><div class="cc-icon"><i class="fas fa-clock"></i></div><div><h4>Hours</h4><p>Mon - Sat: 10:00 AM - 9:00 PM</p><p>Sunday: 12:00 PM - 8:00 PM</p></div></div>
+                </div>
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13613.048148647777!2d74.30318398715822!3d31.461977200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391907720137917d%3A0x81c248aee6cb9528!2sNEW%20SALMAN%20ELECTRONICS!5e0!3m2!1sen!2s!4v1788259213984!5m2!1sen!2s" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" title="New Salman Electronics Location"></iframe>
+                </div>
+            </div>
+
+            <!-- ===== Message Owner / Complaint Form ===== -->
+            <div class="contact-form-wrap" id="contactFormWrap">
+                <div class="cf-heading">
+                    <div class="cf-icon"><i class="fas fa-headset"></i></div>
+                    <div>
+                        <h3>Message the Owner</h3>
+                        <p>Questions, complaints or feedback? Send a message directly to the owner at Salman Electronics.</p>
+                    </div>
+                </div>
+                <form id="contactForm" class="contact-form">
+                    <div class="co-row">
+                        <div class="co-field">
+                            <label>Your Name *</label>
+                            <input type="text" id="cfName" placeholder="Your full name" required>
+                        </div>
+                        <div class="co-field">
+                            <label>Phone Number *</label>
+                            <input type="tel" id="cfPhone" placeholder="03XX-XXXXXXX" required>
+                        </div>
+                    </div>
+                    <div class="co-row">
+                        <div class="co-field">
+                            <label>Email (optional)</label>
+                            <input type="email" id="cfEmail" placeholder="you@email.com">
+                        </div>
+                        <div class="co-field">
+                            <label>Type of Message</label>
+                            <select id="cfType">
+                                <option value="general">General Question</option>
+                                <option value="complaint">Complaint</option>
+                                <option value="feedback">Feedback / Suggestion</option>
+                                <option value="warranty">Warranty / After-Sale</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="co-field">
+                        <label>Subject</label>
+                        <input type="text" id="cfSubject" placeholder="Short subject">
+                    </div>
+                    <div class="co-field">
+                        <label>Your Message *</label>
+                        <textarea id="cfMessage" rows="4" placeholder="Write your message here..." required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary cf-submit" id="cfSubmit">
+                        <i class="fas fa-paper-plane"></i> Send Message to Owner
+                    </button>
+                </form>
+                <div class="cf-success" id="cfSuccess" style="display:none;">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>Message Sent!</h4>
+                    <p>Your message has been delivered to the owner. We will contact you soon. You can also WhatsApp us directly at 0322-9285641.</p>
+                    <a href="https://wa.me/923229285641" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> WhatsApp Owner</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta">
+        <div class="container">
+            <h2>Ready to Buy?</h2>
+            <p>Call us or visit our store for the best deals on electronics</p>
+            <div class="cta-btns">
+                <a href="tel:+923229285641" class="btn btn-white"><i class="fas fa-phone"></i> Call: 0322-9285641</a>
+                <a href="https://wa.me/923229285641?text=Hi!%20I%20need%20product%20info." target="_blank" class="btn btn-outline-white"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#home" class="nav-logo">
+                        <div class="logo-icon"><i class="fas fa-bolt"></i></div>
+                        <div class="logo-text">
+                            <span class="logo-name">Salman</span>
+                            <span class="logo-sub">Electronics</span>
+                        </div>
+                    </a>
+                    <p>Lahore's trusted electronics store. Best prices, genuine products, easy installments.</p>
+                    <div class="footer-social">
+                        <a href="https://wa.me/923229285641" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a href="tel:+923229285641"><i class="fas fa-phone"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="#home">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#categories">Products</a>
+                    <a href="#compare">Compare Prices</a>
+                    <a href="#services">Services</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Categories</h4>
+                    <a href="#" data-cat-link="ac">Air Conditioners</a>
+                    <a href="#" data-cat-link="fridge">Refrigerators</a>
+                    <a href="#" data-cat-link="washing">Washing Machines</a>
+                    <a href="#" data-cat-link="tv">LED TVs</a>
+                    <a href="#" data-cat-link="bike">Bikes</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <p><i class="fas fa-map-marker-alt"></i> Shop 10, Main Peco Rd, Kot Lakhpat, Lahore</p>
+                    <p><i class="fas fa-phone-alt"></i> <a href="tel:+923229285641">0322-9285641</a></p>
+                    <p><i class="fas fa-store"></i> NEW SALMAN ELECTRONICS</p>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2025 New Salman Electronics. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
