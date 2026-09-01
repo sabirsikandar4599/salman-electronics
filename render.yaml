@@ -16,7 +16,7 @@ services:
     name: salman-electronics
     runtime: node
     plan: free
-    buildCommand: npm install
+    buildCommand: npm ci
     startCommand: npm start
     envVars:
       # Brevo API key - Render dashboard pe daalni hai.
