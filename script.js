@@ -227,6 +227,71 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+
+    /* ======================================
+       PRODUCT IMAGES
+       Sab tasveerein Unsplash se hain (free / commercial use).
+       Client ki asal photos aane par sirf yahan URL badal dena
+       (ya "images/ac-1ton.jpg" jaisa local path daal dena).
+       ====================================== */
+    const IMG_BASE = 'https://images.unsplash.com/photo-';
+    const IMG_OPT  = '?auto=format&fit=crop&q=70';
+
+    // Har category ka default (fallback) photo
+    const CAT_IMG = {
+        ac:        '1726614846573-c1ac2e6161d1',   // indoor split AC
+        fridge:    '1484154218962-a197022b5858',
+        washing:   '1597418048367-7dd01e4404ee',
+        tv:        '1611234688667-76b6d8fadd75',
+        bike:      '1609630875171-b1321377ee65',
+        appliance: '1740803292822-a742c6a4fef0'    // microwave
+    };
+
+    // Model-wise photo: 'categoryKey|Model Name'
+    // Sirf wahi photo di gayi hai jo waqai us cheez ki hai.
+    // Jahan sahi photo nahi mili, wahan category ka default chalta hai.
+    const MODEL_IMG = {
+        'ac|1 Ton Inverter AC':          '1726614846573-c1ac2e6161d1',  // indoor split
+        'ac|1.5 Ton Inverter AC':        '1759772238012-9d5ad59ae637',  // indoor split
+        'ac|2 Ton Inverter AC':          '1762341123870-d706f257a12e',  // indoor split, display on
+        // 'ac|1 Ton Window AC'          -> window AC ki sahi photo nahi mili
+
+        'fridge|Single Door 8 Cu.ft':    '1484154218962-a197022b5858',
+        'fridge|Double Door 12 Cu.ft':   '1588854337115-1c67d9247e4d',
+        'fridge|Double Door 18 Cu.ft':   '1484154218962-a197022b5858',
+        // 'fridge|Deep Freezer 8 Cu.ft' -> deep freezer ki photo nahi mili
+
+        'washing|Front Load 8kg':        '1597418048367-7dd01e4404ee',
+        'washing|Top Load 8kg Automatic':'1626806819282-2c1dc01a5e0c',
+        'washing|Semi-Automatic 10kg':   '1632923565835-6582b54f2105',
+
+        'tv|32" HD LED TV':              '1611234688667-76b6d8fadd75',
+        'tv|43" 4K UHD Smart TV':        '1611234688667-76b6d8fadd75',
+        'tv|55" 4K UHD Smart TV':        '1611234688667-76b6d8fadd75',
+
+        'bike|70cc Standard':            '1591637333184-19aa84b3e01f',
+        'bike|125cc':                    '1588756681780-9d5859fc2ca0',
+        'bike|150cc':                    '1609630875171-b1321377ee65',
+
+        'appliance|Microwave Oven 28L':  '1740803292822-a742c6a4fef0'
+        // 'appliance|Electric Iron Dry' -> iron ki photo nahi mili
+        // 'appliance|Ceiling Fan 56"'   -> fan ki photo nahi mili
+    };
+
+    // URL banata hai. width dena zaroori hai taake mobile par chhoti file aaye.
+    function imgUrl(catKey, modelName, w) {
+        const id = MODEL_IMG[catKey + '|' + modelName] || CAT_IMG[catKey];
+        if (!id) return '';
+        return IMG_BASE + id + IMG_OPT + '&w=' + (w || 600);
+    }
+
+    // <img> tag. Koi icon nahi - photo na aaye to sirf khaali plate rehti hai.
+    function productImgTag(catKey, modelName, w, alt) {
+        const url = imgUrl(catKey, modelName, w);
+        if (!url) return '';
+        return `<img src="${url}" alt="${alt || modelName}" loading="lazy" decoding="async" onerror="this.remove()">`;
+    }
+
     /* ======================================
        UTILITIES
        ====================================== */
@@ -243,6 +308,91 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         return models;
     }
+
+    /* ======================================
+       HERO BACKGROUND SLIDER (auto 3s)
+       ====================================== */
+    (function heroSlider() {
+        const track = document.getElementById('hsTrack');
+        const dotsEl = document.getElementById('hsDots');
+        const labelEl = document.getElementById('hsLabel');
+        if (!track) return;
+
+        // Har model ka sasta-tareen brand -> ek slide
+        const all = [];
+        Object.entries(DB).forEach(([key, cat]) => {
+            cat.models.forEach(m => {
+                const cheapest = m.brands.slice().sort((a, b) => a.price - b.price)[0];
+                all.push({
+                    cat: key, catTitle: cat.title, model: m.name,
+                    brand: cheapest.brand, price: cheapest.price,
+                    img: imgUrl(key, m.name, 1600)
+                });
+            });
+        });
+
+        // Category-wise mix taake ek hi cheez lagataar na aaye
+        const byCat = {};
+        all.forEach(s => { (byCat[s.cat] = byCat[s.cat] || []).push(s); });
+        const slides = [];
+        let more = true, i = 0;
+        while (more) {
+            more = false;
+            Object.values(byCat).forEach(arr => {
+                if (arr[i]) { slides.push(arr[i]); more = true; }
+            });
+            i++;
+        }
+
+        track.innerHTML = slides.map((s, idx) =>
+            `<div class="hero-slide${idx === 0 ? ' active' : ''}" style="background-image:url('${s.img}')" role="img" aria-label="${s.brand} ${s.model}"></div>`
+        ).join('');
+
+        dotsEl.innerHTML = slides.map((s, idx) =>
+            `<button class="hs-dot${idx === 0 ? ' active' : ''}" data-i="${idx}" aria-label="Slide ${idx + 1}"></button>`
+        ).join('');
+
+        const slideEls = [...track.querySelectorAll('.hero-slide')];
+        const dotEls = [...dotsEl.querySelectorAll('.hs-dot')];
+        let cur = -1, timer = null;
+
+        function go(n) {
+            if (cur >= 0) {
+                slideEls[cur].classList.remove('active');
+                dotEls[cur].classList.remove('active');
+            }
+            cur = (n + slideEls.length) % slideEls.length;
+            slideEls[cur].classList.add('active');
+            dotEls[cur].classList.add('active');
+
+            const s = slides[cur];
+            if (labelEl) {
+                labelEl.innerHTML = `
+                    <span class="hsl-cat">${s.catTitle}</span>
+                    <span class="hsl-model">${s.model}</span>
+                    <span class="hsl-price">${s.brand} &middot; Rs. ${fmt(s.price)}</span>`;
+                labelEl.dataset.cat = s.cat;
+            }
+        }
+        function start() { stop(); timer = setInterval(() => go(cur + 1), 3000); }
+        function stop() { if (timer) clearInterval(timer); timer = null; }
+
+        document.getElementById('hsNext').addEventListener('click', () => { go(cur + 1); start(); });
+        document.getElementById('hsPrev').addEventListener('click', () => { go(cur - 1); start(); });
+        dotEls.forEach(d => d.addEventListener('click', () => { go(+d.dataset.i); start(); }));
+
+        // Label par click -> us category ka modal
+        if (labelEl) labelEl.addEventListener('click', () => {
+            if (labelEl.dataset.cat) openModal(labelEl.dataset.cat);
+        });
+
+        document.getElementById('heroSlider').addEventListener('mouseenter', stop);
+        document.getElementById('heroSlider').addEventListener('mouseleave', start);
+        document.addEventListener('visibilitychange', () => document.hidden ? stop() : start());
+
+        go(0);
+        start();
+    })();
 
     /* ======================================
        NAVBAR
@@ -317,8 +467,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         modalTitle.textContent = cat.title;
         modalSub.textContent = cat.sub;
-        modalIcon.className = 'modal-cat-icon ' + cat.iconClass;
-        modalIcon.innerHTML = `<i class="fas ${cat.icon}"></i>`;
+        modalIcon.className = 'modal-cat-img ' + cat.iconClass;
+        modalIcon.innerHTML = productImgTag(catKey, '', 200, cat.title);
 
         // Brand filter buttons
         const brands = [...new Set(getCatModels(catKey).map(p => p.brand))];
@@ -362,6 +512,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="mp-model-title">${modelName}</h3>
                     ${items.map(p => `
                         <div class="mp-card ${p.price === minPrice ? 'best-deal' : ''}">
+                            <div class="mp-media">${productImgTag(activeModalCat, modelName, 500, p.brand + ' ' + modelName)}</div>
                             <div class="mp-header">
                                 <span class="mp-brand">${p.brand}</span>
                                 <span class="mp-warranty"><i class="fas fa-shield-alt"></i> ${p.warranty}</span>
@@ -627,6 +778,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             cartItemsEl.innerHTML = cart.map((item, idx) => `
                 <div class="cart-item">
+                    <div class="ci-thumb">${productImgTag(item.cat, item.model, 160, item.brand + ' ' + item.model)}</div>
                     <div class="ci-info">
                         <span class="ci-brand">${item.brand}</span>
                         <span class="ci-name">${item.model}</span>

@@ -129,7 +129,8 @@
     <!-- ===== HERO ===== -->
     <section class="hero" id="home">
         <div class="hero-bg">
-            <div class="hero-grid"></div>
+            <div class="hero-slides" id="hsTrack"></div>
+            <div class="hero-shade"></div>
             <div class="hero-particles">
                 <span class="pt" style="left:6%;top:18%;--d:11s;--s:7px;"></span>
                 <span class="pt" style="left:14%;top:64%;--d:9s;--s:5px;"></span>
@@ -165,15 +166,13 @@
                     <div class="stat"><span class="stat-num">10+</span><span class="stat-label">Years</span></div>
                 </div>
             </div>
-            <div class="hero-visual">
-                <div class="hero-card card-1"><i class="fas fa-snowflake"></i><span>Air Conditioners</span></div>
-                <div class="hero-card card-2"><i class="fas fa-temperature-low"></i><span>Refrigerators</span></div>
-                <div class="hero-card card-3"><i class="fas fa-tshirt"></i><span>Washing Machines</span></div>
-                <div class="hero-card card-4"><i class="fas fa-motorcycle"></i><span>Bikes</span></div>
-                <div class="hero-card card-5"><i class="fas fa-tv"></i><span>LED TVs</span></div>
-                <div class="hero-center"><i class="fas fa-bolt"></i></div>
-            </div>
         </div>
+        <div class="hs-controls" id="heroSlider">
+            <button class="hs-nav hs-prev" id="hsPrev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+            <div class="hs-dots" id="hsDots"></div>
+            <button class="hs-nav hs-next" id="hsNext" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="hs-label" id="hsLabel"></div>
         <a href="#about" class="hero-scroll"><i class="fas fa-chevron-down"></i></a>
     </section>
 
@@ -218,42 +217,54 @@
             </div>
             <div class="cat-grid">
                 <div class="cat-card" data-category="ac">
-                    <div class="cat-icon"><i class="fas fa-snowflake"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1718203862467-c33159fdc504?auto=format&fit=crop&q=70&w=800" alt="Air conditioners at New Salman Electronics" loading="lazy" decoding="async">
+                    </div>
                     <h3>Air Conditioners</h3>
                     <p>Split, Window & Inverter ACs</p>
                     <div class="cat-brands">Haier, Gree, Pel, Dawlance</div>
                     <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="cat-card" data-category="fridge">
-                    <div class="cat-icon"><i class="fas fa-temperature-low"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&q=70&w=800" alt="Refrigerators and deep freezers" loading="lazy" decoding="async">
+                    </div>
                     <h3>Refrigerators</h3>
                     <p>Single, Double Door & Freezers</p>
                     <div class="cat-brands">Dawlance, Haier, Samsung, Pel</div>
                     <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="cat-card" data-category="washing">
-                    <div class="cat-icon"><i class="fas fa-tshirt"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1626806819282-2c1dc01a5e0c?auto=format&fit=crop&q=70&w=800" alt="Washing machines - front load and top load" loading="lazy" decoding="async">
+                    </div>
                     <h3>Washing Machines</h3>
                     <p>Front Load, Top Load & Semi</p>
                     <div class="cat-brands">Haier, Gree, Dawlance, Singer</div>
                     <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="cat-card" data-category="tv">
-                    <div class="cat-icon"><i class="fas fa-tv"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1611234688667-76b6d8fadd75?auto=format&fit=crop&q=70&w=800" alt="LED and Smart TVs" loading="lazy" decoding="async">
+                    </div>
                     <h3>LED TVs</h3>
                     <p>Smart, 4K & HD TVs</p>
                     <div class="cat-brands">Samsung, LG, Sony, TCL</div>
                     <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="cat-card" data-category="bike">
-                    <div class="cat-icon"><i class="fas fa-motorcycle"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1609630875171-b1321377ee65?auto=format&fit=crop&q=70&w=800" alt="Motorcycles - 70cc, 125cc and 150cc" loading="lazy" decoding="async">
+                    </div>
                     <h3>Bikes</h3>
                     <p>70cc, 125cc & 150cc</p>
                     <div class="cat-brands">Honda, Yamaha, Suzuki, United</div>
                     <div class="cat-action">View Products <i class="fas fa-arrow-right"></i></div>
                 </div>
                 <div class="cat-card" data-category="appliance">
-                    <div class="cat-icon"><i class="fas fa-blender"></i></div>
+                    <div class="cat-media">
+                        <img src="https://images.unsplash.com/photo-1570222094114-d054a817e56b?auto=format&fit=crop&q=70&w=800" alt="Home appliances - microwave, fan, iron" loading="lazy" decoding="async">
+                    </div>
                     <h3>Home Appliances</h3>
                     <p>Microwaves, Fans, Irons & More</p>
                     <div class="cat-brands">Philips, Panasonic, Dawlance</div>
@@ -268,7 +279,7 @@
         <div class="modal">
             <div class="modal-header">
                 <div class="modal-title-area">
-                    <div class="modal-cat-icon" id="modalCatIcon"></div>
+                    <div class="modal-cat-img" id="modalCatIcon"></div>
                     <div>
                         <h2 id="modalTitle"></h2>
                         <span id="modalSubTitle"></span>
