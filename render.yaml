@@ -1,0 +1,31 @@
+# ============================================
+# Render Blueprint - New Salman Electronics
+# Ye file render.yaml hai - Render is repo ko
+# deploy kar dega jab aap Render pe connect karoge.
+#
+# DEPLOY STEPS (Render dashboard pe, 2 min):
+# 1. Sign up: https://render.com
+# 2. https://render.com/new/render-blueprint
+# 3. GitHub account connect screen pe Allow/Install
+# 4. Repo: sabirsikandar4599/salman-electronics select karo
+# 5. "Apply Blueprint" / Deploy dabao
+# 6. BREVO_API_KEY ka value past karo jab pooche
+# ============================================
+services:
+  - type: web
+    name: salman-electronics
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      # Brevo API key - Render dashboard pe daalni hai.
+      # sync: false = repo se pick nahi hogi, aap ko dashboard par dena hai.
+      - key: BREVO_API_KEY
+        sync: false
+      # Sender email (Brevo dashboard -> Senders -> verify karna)
+      - key: BREVO_SENDER_EMAIL
+        value: razakhan9257@gmail.com
+      # Jis email pe orders/messages jaien gi
+      - key: OWNER_EMAIL
+        value: razakhan9257@gmail.com

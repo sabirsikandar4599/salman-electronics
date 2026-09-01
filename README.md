@@ -54,3 +54,20 @@ BREVO_SENDER_EMAIL=razakhan9257@gmail.com   # must be verified in Brevo
 OWNER_EMAIL=razakhan9257@gmail.com          # where emails arrive
 PORT=3000
 ```
+
+## Deploy on Render (free)
+
+Repo mein `render.yaml` already hai — Render ka Blueprint. Steps:
+
+1. Sign up at https://render.com (free)
+2. Go to https://render.com/new/render-blueprint
+3. Connect GitHub, install Render on the repo `sabirsikandar4599/salman-electronics`
+4. Click **Apply Blueprint** / Deploy
+5. When asked, paste your real `BREVO_API_KEY`
+6. Done - Render aap ko live URL dega, e.g. `https://salman-electronics.onrender.com`
+
+Notes:
+- Free plan spins down after 15 min idle, automatically wakes on visit.
+- SMTP is blocked on Render, so this project uses **Brevo HTTP API**
+  (port 443) - already handled in `server.js`.
+- `PORT` is auto-injected by Render; server defaults to 3000 locally.
